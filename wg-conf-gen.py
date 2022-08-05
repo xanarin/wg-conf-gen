@@ -17,6 +17,14 @@ class WgPeer():
         self.endpoint_host = data_dict['endpoint_host']
         self.endpoint_port = int(data_dict['endpoint_port'])
         self.private_key = data_dict['private_key']
+        self.routes = []
+        if data_dict.get("routes"):
+            for route in data_dict['routes']:
+                try:
+                    self.routes.append(ipaddress.ip_network(route))
+                except ValueError as verr:
+                    raise KeyError(f"IP Route {route} is invalid: {verr}") from verr
+
         ips =  data_dict['wg_ips']
         if not ips:
             raise KeyError("No IPs specified in wg_ips dictionary")
@@ -50,6 +58,8 @@ class WgPeer():
         peer_block += "AllowedIPs = "
         for (ip, _) in self.wg_ips:
             peer_block += f"{ip}/{ip.max_prefixlen},"
+        for route in self.routes:
+            peer_block += f"{route},"
         # Remove last comma and terminate AllowedIPs line
         peer_block = peer_block[:-1] + "\n"
 
@@ -93,7 +103,7 @@ def parse_config(config_data):
         try:
             peers.append(WgPeer(peer_name, peer_def))
         except KeyError as kerr:
-            raise ConfigParseError(f"Failed to parse peer {peer_name} with exception: {kerr}") from kerr
+            raise ConfigParseError(f"Failed to parse peer '{peer_name}': {kerr}") from kerr
     return peers
 
 def parse_args():

@@ -10,6 +10,8 @@ Take a look at `example.yml`. Basically, you must have a top-level `peers:` list
 - `endpoint_port` - The UDP port that this host will listen on for Wireguard traffic
 - `private_key` - The Wireguard Private key (base64-ed Curve25519) that this node will use
 - `wg_ips` - A list of IP addresses that this peer will use inside of the Wireguard network. Each IP address requires a subnet mask (i.e. `2001:db8:1234:4321::101/64` or `10.1.0.1/24`)
+- `routes` - An **optional** list of IP networks that should be routed through this peer. This is useful if the peer is a router that can reach another network.
+    - **NOTE:** These routes will be added to all other peer's `AllowedIPs` directives and may unintentionally hijack traffic if the user is not careful.
 
 ## Output Files
 This script will create a directory called `output_configs` in the current directory and create a configuration file for each peer with the peer's name, like `example.conf`. This file can then be uploaded to the Wireguard peer and set up with `wg-quick`.
