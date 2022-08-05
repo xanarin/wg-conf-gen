@@ -1,0 +1,32 @@
+peers:
+  node1:
+    endpoint_host: node1.example.com
+    endpoint_port: 45678
+    private_key: wINcUGkTQI9YcEt6/+MT3XaoUKDWg2nwhyaIjVHNTW0=
+    wg_ips:
+      - 2001:db8:2442:1234::1/64
+      - fe80::1234:1/64
+
+  node2:
+    endpoint_host: node2.example.com
+    endpoint_port: 34567
+    private_key: +MRLzsHh4ytQnUfdCDkxN/F92pq2dYrW2qD7HxYvyFU=
+    wg_ips:
+      - 2001:db8:2442:1234::2/64
+      - fe80::1234:2/64
+
+  node3:
+    endpoint_host: node3.example.com
+    endpoint_port: 23456
+    private_key: kEE0TsbRaWNl3hq74K0RfcgI4ifo2hjmExkdkrSQkU4=
+    wg_ips:
+      - 2001:db8:2442:1234::3/64
+      - fe80::1234:3/64
+
+  node😎:
+    endpoint_host: node-cool.example.com
+    endpoint_port: 12345
+    private_key: sHBIoK7RG30Tg1/aNWpYS0urUnHZcnM+f/caRm/4Gmc=
+    wg_ips:
+      - 2001:db8:2442:1234::4/64
+      - fe80::1234:4/64
